@@ -38,7 +38,7 @@ def img_to_hex(image_path):
 
     except Exception as e:
         print(f"Error: {e}")
-        return None, None
+        return None
 
 def hex_to_img(hex_matrix, output_path):
     """

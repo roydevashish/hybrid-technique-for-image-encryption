@@ -10,6 +10,9 @@ def matrix_to_string(hex_matrix):
     return string
 
 def string_to_matrix(string, hex_matrix):
+    """
+    String to hex matrix formate.
+    """
     i = 0
     for row in range(len(hex_matrix)):
         for col in range(len(hex_matrix[row])):
