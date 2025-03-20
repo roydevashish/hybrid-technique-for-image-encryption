@@ -1,31 +1,70 @@
 import image as Img
 import matrix as Matrix
 import chacha20 as ChaCha20
-
-import os
-from dotenv import load_dotenv
-
-load_dotenv()
+import ecc as ECC
+import equation as EQU
+import padding as PAD
 
 def encryption(img):
-    input_dir = os.getenv("INPUT_DIR")
-    output_dir = os.getenv("OUTPUT_DIR")
-    chacha20_key = os.getenv("CHACHA20_KEY")
+    # Convert img to matrix
+    img_matrix = Img.img_to_hex(f"original/{img}")
 
-    # image changed to matrix
-    raw_hex_matrix = Img.img_to_hex(f"{input_dir}/{img}")
+    # Convert img matrix to string
+    img_matrix_string = Matrix.matrix_to_string(img_matrix)
+    testvara = img_matrix_string
 
-    # matrix is changed to string
-    matrix_in_string_formate = Matrix.matrix_to_string(raw_hex_matrix)
+    # Encrypt the img matrix string using ecc
+    ecc_enc_img_matrix_string = ECC.encryption(img_matrix_string)
 
-    # matrix string is encrypted using chacha20
-    enc_matrix_in_string_formate, nonce = ChaCha20.encryption(matrix_in_string_formate, chacha20_key)
+    # Apply padding
+    original_img_height = len(img_matrix)
+    original_img_width = len(img_matrix[0]) if original_img_height > 0 else 0
 
-    # string is changed back to matrix
-    enc_hex_matrix = Matrix.string_to_matrix(enc_matrix_in_string_formate, raw_hex_matrix)
+    ecc_enc_img_matrix_string_len = len(ecc_enc_img_matrix_string)
+    required_no_of_pixel_for_ecc_enc_img_matrix_string = ecc_enc_img_matrix_string_len // 6
+    valueofx = EQU.solveforx(original_img_height, original_img_width, required_no_of_pixel_for_ecc_enc_img_matrix_string)
 
-    # matrix is changed to image and saved to output folder
-    Img.hex_to_img(enc_hex_matrix, f"{output_dir}/{nonce}-{img}")
+    enc_img_height = original_img_height + valueofx
+    enc_img_width = original_img_width + valueofx
+    enc_img_pixel = enc_img_height * enc_img_width
+    enc_img_blank_pixel = enc_img_pixel - required_no_of_pixel_for_ecc_enc_img_matrix_string
+    length_of_padding = enc_img_blank_pixel * 6
+    ecc_enc_img_matrix_string_with_padding = PAD.padding(ecc_enc_img_matrix_string, length_of_padding, original_img_height, original_img_width)
 
-def decryption():
-    pass
+    # Encrypt the encrypted img matrix string with padding using chacha20
+    chacha20_enc_img_matrix_string = ChaCha20.encryption(ecc_enc_img_matrix_string_with_padding)
+
+    # Construct the new matrix and put the pixel data
+    rows, cols = enc_img_height, enc_img_width
+    enc_img_matrix = [[0 for _ in range(cols)] for _ in range(rows)]
+    enc_img_matrix = Matrix.string_to_matrix(chacha20_enc_img_matrix_string, enc_img_matrix)
+
+    # Convert back to img and save it
+    Img.hex_to_img(enc_img_matrix, f"encrypted/{img}")
+    print("Encryption Completed...")
+
+    # Decryption part 
+
+    # Convert img to matrix
+    img_matrix = Img.img_to_hex(f"encrypted/{img}")
+
+    # Convert img matrix to string
+    img_matrix_string = Matrix.matrix_to_string(img_matrix)
+
+    # Decrypt the img matrix string using chacha20
+    dec_chacha20_img_matrix_string = ChaCha20.decryption(img_matrix_string)
+
+    # Remove padding
+    dec_chacha20_img_matrix_string_without_padding, new_img_height, new_img_width = PAD.removepadding(dec_chacha20_img_matrix_string)
+
+    # Decrypt the decrypted img matrix string without padding using ecc
+    dec_ecc_img_matrix_string = ECC.decryption(dec_chacha20_img_matrix_string_without_padding)
+
+    # Construct the new matrix and put the pixel data
+    rows, cols = new_img_height, new_img_width
+    dec_img_matrix = [[0 for _ in range(cols)] for _ in range(rows)]
+    dec_img_matrix = Matrix.string_to_matrix(dec_ecc_img_matrix_string, dec_img_matrix)
+
+    # Convert back to img and save it
+    Img.hex_to_img(dec_img_matrix, f"decrypted/{img}")
+    print("Decryption Completed...")
