@@ -1,17 +1,20 @@
 from Crypto.Cipher import ChaCha20
 from binascii import unhexlify
+import os
+from dotenv import load_dotenv
+load_dotenv()
 
-def encryption(plaintext, key):
+def encryption(plaintext, key=os.getenv("CHACHA20_KEY"), nonce=os.getenv("CHACHA20_NONCE")):
     plaintext = unhexlify(plaintext)
     key = unhexlify(key)
+    nonce = unhexlify(nonce)
 
-    cipher = ChaCha20.new(key=key)
+    cipher = ChaCha20.new(key=key, nonce=nonce)
     ciphertext = cipher.encrypt(plaintext)
-    nonce = cipher.nonce
     
-    return ciphertext.hex(), nonce.hex()
+    return ciphertext.hex()
 
-def decryption(ciphertext, key, nonce):
+def decryption(ciphertext, key=os.getenv("CHACHA20_KEY"), nonce=os.getenv("CHACHA20_NONCE")):
     ciphertext = unhexlify(ciphertext)
     key = unhexlify(key)
     nonce = unhexlify(nonce)
