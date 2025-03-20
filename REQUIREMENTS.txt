@@ -2,3 +2,4 @@ pillow
 numpy
 pycryptodome
 python-dotenv
+ecpy
