@@ -1,0 +1,8 @@
+python-dotenv
+pillow
+numpy
+pycryptodome
+ecpy
+opencv-python
+opencv-contrib-python
+matplotlib
