@@ -1,0 +1,7 @@
+[project]
+name = "hybrid-technique-for-image-encryption"
+version = "0.1.0"
+description = "This project implements a hybrid image encryption technique by combining asymmetric and symmetric encryption methods. It utilizes the ECC for asymmetric encryption and ChaCha20 stream cipher for symmetric encryption to achieve robust and secure image protection."
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = []
