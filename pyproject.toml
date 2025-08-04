@@ -10,4 +10,5 @@ dependencies = [
 	"pillow>=11.3.0",
 	"pycryptodome>=3.23.0",
 	"python-dotenv>=1.1.1",
+	"scikit-image>=0.25.2",
 ]
