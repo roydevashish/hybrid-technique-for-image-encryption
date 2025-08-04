@@ -20,6 +20,7 @@
   - [📁 `dataset/`](#-dataset)
   - [📁 `output/`](#-output)
   - [📁 `src/app/` — Core Logic](#-srcapp--core-logic)
+  - [📁 `src/analysis/` — Analysis Logic](#-srcanalysis--analysis-logic)
 - [📝 License](#-license)
 - [🙋‍♂️ Maintainer](#-maintainer)
 
