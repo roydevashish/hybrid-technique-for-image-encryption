@@ -69,6 +69,7 @@ Create a `.env` file in the root directory with the following:
 IMG_ORIGINAL=dataset
 IMG_ENCRYPTED=output/encrypted
 IMG_DECRYPTED=output/decrypted
+ANALYSIS_DIR=output/analysis
 
 CHACHA20_KEY=YOUR_CHACHA20_KEY_64_HEX_CHARACTER
 CHACHA20_NONCE=YOUR_CHACHA20_NONCE_16_HEX_CHARACTER
@@ -99,6 +100,9 @@ root
 |   |-- sample.png
 |
 |-- output
+|   |-- analysis (Analysis results/reports)
+|   |   |-- entropy.csv (Entropy Analysis)
+|   |
 |   |-- decrypted (Decrypted images)
 |   |   |-- sample.png 
 |   |
@@ -106,6 +110,11 @@ root
 |       |-- sample.png
 |
 |-- src
+|   |-- analysys (Analysis logic)
+|   |   |-- __init__.py
+|   |   |-- entropy.py
+|   |   |-- main.py
+|   |
 |   |-- app (Core logic)
 |       |-- __init__.py
 |       |-- chacha20.py
@@ -144,8 +153,8 @@ root
 
 ### 📁 `output/`
 
-- Stores all **result images** from encryption and decryption operations.
-
+- Stores all **result** related to project.
+  - **`output/analysis/`** — 📊 Contains analysis results/reports.
   - **`output/encrypted/`** — 💾 Contains images after encryption.
   - **`output/decrypted/`** — 🔓 Contains images that were decrypted (should match originals).
 
@@ -162,6 +171,14 @@ root
 | `main.py`         | Coordinates encryption/decryption of all images at `/dataset` folder. |
 | `matrix.py`       | Converts matrix to string and string back to matrix. |
 | `padding.py`      | Applies/removes padding to/from string with image metadata (height and width). |
+
+### 📁 `src/analysis/` — Analysis Logic
+
+| File             | Description |
+|------------------|-------------|
+| `__init__.py`     | Initializes the Python module. |
+| `entropy.py`     | Calculate entropy of input, encrypted and decrypted images and write it to `output/analysis/entropy.csv` file. |
+| `main.py`         | Coordinates all analysis. |
 
 ---
 
