@@ -70,6 +70,12 @@ Create a `.env` file in the root directory with the following:
 IMG_ORIGINAL=dataset
 IMG_ENCRYPTED=output/encrypted
 IMG_DECRYPTED=output/decrypted
+
+IMG_ORIGINAL_FOR_NPCR=output/original_for_npcr
+IMG_ENCRYPTED_FOR_NPCR=output/encrypted_for_npcr
+
+CROPED_ENCRYPTED_IMG=output/croped_for_mse_psnr
+
 ANALYSIS_DIR=output/analysis
 
 CHACHA20_KEY=YOUR_CHACHA20_KEY_64_HEX_CHARACTER
