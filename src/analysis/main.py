@@ -1,6 +1,7 @@
 from src.analysis.entropy import Entropy
 from src.analysis.npcr import NPCR
 from src.analysis.mse import MSE
+from src.analysis.uaci import UACI
 
 def Analysis():
   print("Starting Analysis...")
@@ -28,6 +29,10 @@ def Analysis():
   print()
   
   # 6. UACI
+  print(f"Calculating UACI...")
+  UACI()
+  print(f"UACI Calculated...")
+  print()
   
   # 7. NIST Test (optional)
 
