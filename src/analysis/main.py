@@ -3,6 +3,7 @@ from src.analysis.npcr import NPCR
 from src.analysis.mse import MSE
 from src.analysis.uaci import UACI
 from src.analysis.correlationCofficient import CorrelationCofficient
+from src.analysis.histogram import Histogram
 
 def Analysis():
   print("Starting Analysis...")
@@ -40,5 +41,11 @@ def Analysis():
   print()
   
   # 7. NIST Test (optional)
+
+  # 8. Histogram
+  print(f"Calculating Histogram...")
+  Histogram()
+  print(f"Histogram Calculated...")
+  print()
 
   print("Analysis Completed...")
