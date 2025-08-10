@@ -4,6 +4,7 @@ from src.analysis.mse import MSE
 from src.analysis.uaci import UACI
 from src.analysis.correlationCofficient import CorrelationCofficient
 from src.analysis.histogram import Histogram
+from src.analysis.mse_psnr_bw_original_and_decrypted_img import MSEAndPSNRBetweenOriginalAndDecryptedImage
 
 def Analysis():
   print("Starting Analysis...")
@@ -46,6 +47,12 @@ def Analysis():
   print(f"Calculating Histogram...")
   Histogram()
   print(f"Histogram Calculated...")
+  print()
+
+  # 9. MSE and PSNR between original and decrypted image
+  print(f"Calculating MSE and PSNR b/w original and decrypted image...")
+  MSEAndPSNRBetweenOriginalAndDecryptedImage()
+  print(f"MSE and PSNR b/w original and decrypted image Calculated...")
   print()
 
   print("Analysis Completed...")
