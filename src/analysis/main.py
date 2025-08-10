@@ -2,6 +2,7 @@ from src.analysis.entropy import Entropy
 from src.analysis.npcr import NPCR
 from src.analysis.mse import MSE
 from src.analysis.uaci import UACI
+from src.analysis.correlationCofficient import CorrelationCofficient
 
 def Analysis():
   print("Starting Analysis...")
@@ -15,6 +16,10 @@ def Analysis():
   print()
 
   # 3. Correlation cofficient
+  print(f"Calculating correlation cofficient...")
+  CorrelationCofficient()
+  print(f"Correlation cofficient Calculated...")
+  print()
 
   # 4. MSE and PSNR
   print(f"Calculating MSE and PSNR...")
